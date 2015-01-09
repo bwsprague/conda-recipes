@@ -19,6 +19,10 @@ echo $PREFIX
 export CFLAGS="-I$PREFIX/include -fPIC $CFLAGS"
 export LDFLAGS="-L$PREFIX/lib $LDFLAGS"
 
+
+sed -i '' "s/list(APPEND CUDA_LIBRARIES -Wl/# list(APPEND/g" ../cmake/FindCUDA.cmake
+
+
 cmake .. -G"$CMAKE_GENERATOR"                                            \
     $TBB                                                                 \
     -DBUILD_opencv_apps=0                                                \
@@ -41,7 +45,7 @@ cmake .. -G"$CMAKE_GENERATOR"                                            \
     -DPYTHON_INCLUDE_PATH=$PREFIX/include/python${PY_VER}                \
     -DPYTHON_LIBRARY=$PREFIX/lib/libpython${PY_VER}.$DYNAMIC_EXT         \
     -DPYTHON_PACKAGES_PATH=$SP_DIR                                       \
-    -DWITH_CUDA=0                                                        \
+    -DWITH_CUDA=1                                                        \
     -DWITH_OPENCL=0                                                      \
     -DWITH_OPENNI=0                                                      \
     -DWITH_FFMPEG=0                                                      \
